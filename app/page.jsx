@@ -47,13 +47,14 @@ const Home = () => {
               Hello I am <br />
               <span className="text-accent">
                 <span ref={typedRef}></span>
-              </span>!%
+              </span>
               {/* thg */}
             </h1>
-            <p className="max-w-[500px] mb-9 text-white/80 ">
-              I excel at crafting elegant digital experiences and I am
-              proficient in various programming languages and technologies.
+            <p className="max-w-[500px] mb-9  text-white/80 ">
+        Welcome to my portfolio,    I'm thrilled to have you here! Explore my work, skills, and experiences, and feel free to reach out if you're interested in collaboration or learning more about what I do.
             </p>
+            <h1 className="mb-6 h3">Let’s Collaborate</h1>
+            <p className="max-w-[500px] mb-9 text-white/80 ">Whether you need a data-driven approach to your next project or a refined digital solution, I’m open to opportunities to collaborate and create impactful experiences.</p>
             {/* btn & socials */}
             <div className="flex flex-col items-center gap-8 xl:flex-row">
               <Button
