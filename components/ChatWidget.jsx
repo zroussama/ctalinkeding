@@ -11,7 +11,7 @@ const ChatWidget = () => {
   const [messages, setMessages] = useState([
     {
       type: 'bot',
-      text: "👋 Hi! I'm Oussama's virtual assistant — here to help you explore his journey as a software architect and full-stack engineer.",
+      text: "👋 Hi! I&apos;m Oussama&apos;s virtual assistant — here to help you explore his journey as a software architect and full-stack engineer.",
       suggestedReplies: ["🚀 View recent projects", "💼 Explore experience", "📩 Get in touch", "🧠 Skills & tech stack"]
     }
   ]);
@@ -56,7 +56,7 @@ const ChatWidget = () => {
       } else if (message.includes('experience') || message.includes('💼')) {
         setConversationContext('experience');
         return {
-          text: "Oussama's experience spans CRM systems, data pipelines, and scalable cloud apps.\n\nWant a quick overview or a deep dive into one?",
+          text: "Oussama&apos;s experience spans CRM systems, data pipelines, and scalable cloud apps.\n\nWant a quick overview or a deep dive into one?",
           suggestedReplies: ["📋 Career timeline", "🏢 Companies & internships", "🧩 Technical achievements", "💡 Key projects per company"]
         };
       } else if (message.includes('contact') || message.includes('📩')) {
@@ -68,7 +68,7 @@ const ChatWidget = () => {
       } else if (message.includes('skill') || message.includes('🧠')) {
         setConversationContext('skills');
         return {
-          text: "He's fluent across the full stack — from frontend to cloud automation.\n\nCurious about a specific area?",
+          text: "He&apos;s fluent across the full stack — from frontend to cloud automation.\n\nCurious about a specific area?",
           suggestedReplies: ["🖥️ Frontend (React, Next.js)", "🧠 Backend (Node.js, Laravel)", "☁️ DevOps (Docker, CI/CD)", "📈 Data & ML (Python, XGBoost)"]
         };
       }
@@ -106,7 +106,7 @@ const ChatWidget = () => {
         };
       } else if (message.includes('github') || message.includes('💻')) {
         return {
-          text: "💻 Check out Oussama's GitHub:\nhttps://github.com/zroussama\n\n[Would open in new tab with tracking]",
+          text: "💻 Check out Oussama&apos;s GitHub:\nhttps://github.com/zroussama\n\n[Would open in new tab with tracking]",
           suggestedReplies: ["🔙 Back to contact options", "🌟 Star a repo", "🏠 Back to main menu"]
         };
       } else if (message.includes('schedule') || message.includes('👋')) {
@@ -121,14 +121,14 @@ const ChatWidget = () => {
     if (message.includes('back') || message.includes('menu') || message.includes('🏠')) {
       setConversationContext('welcome');
       return {
-        text: "👋 Welcome back! How can I help you explore Oussama's professional journey?",
+        text: "👋 Welcome back! How can I help you explore Oussama&apos;s professional journey?",
         suggestedReplies: ["🚀 View recent projects", "💼 Explore experience", "📩 Get in touch", "🧠 Skills & tech stack"]
       };
     }
     
     // Default response for unhandled messages
     return {
-      text: "I'm not sure how to respond to that. Would you like to see the main menu options?",
+      text: "I&apos;m not sure how to respond to that. Would you like to see the main menu options?",
       suggestedReplies: ["🚀 View projects", "💼 Experience", "📩 Contact info", "🧠 Skills"]
     };
   };
@@ -191,13 +191,13 @@ const ChatWidget = () => {
       if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
         errorMessage = {
           type: 'bot',
-          text: "🔌 Oops! I couldn't connect to the chat service. This might be because:\n\n• The n8n server isn't running locally\n• The webhook URL is incorrect\n• There's a network issue\n\nYou can try again or contact me directly.",
+          text: "🔌 Oops! I couldn&apos;t connect to the chat service. This might be because:\n\n• The n8n server isn&apos;t running locally\n• The webhook URL is incorrect\n• There&apos;s a network issue\n\nYou can try again or contact me directly.",
           suggestedReplies: ["🔄 Try again", "📧 Email me", "🔗 LinkedIn", "💻 GitHub"]
         };
       } else if (error.message.includes('404')) {
         errorMessage = {
           type: 'bot',
-          text: "🔍 The chat service endpoint wasn't found. The webhook URL might be incorrect or the n8n workflow isn't properly set up.",
+          text: "🔍 The chat service endpoint wasn&apos;t found. The webhook URL might be incorrect or the n8n workflow isn&apos;t properly set up.",
           suggestedReplies: ["🔄 Retry", "📧 Contact directly", "📋 View setup guide"]
         };
       } else if (error.message.includes('500')) {
@@ -279,8 +279,8 @@ const ChatWidget = () => {
           <div className="bg-accent text-primary p-4">
             <div className="flex justify-between items-start">
               <div className="flex-1">
-                <h3 className="font-semibold text-lg">Oussama's Assistant</h3>
-                <p className="text-xs text-primary/80">AI-powered responses</p>
+                <h3 className="font-semibold text-lg">Virtual OhZed </h3>
+                <p className="text-xs text-primary/80">AI-powered responses — the digital version of me</p>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
