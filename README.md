@@ -1,4 +1,24 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# OhZed Portfolio
+
+A modern portfolio website built with Next.js, showcasing my skills and projects as a Software Engineer, Data Architect, and Web Developer.
+
+## Project Overview
+
+This portfolio website features:
+- Modern UI with smooth animations using Framer Motion
+- Responsive design with Tailwind CSS
+- Interactive components and page transitions
+- Project showcase with image slider
+- Services section highlighting my expertise
+- Contact form for potential clients or employers
+
+## Technologies Used
+
+- **Frontend**: Next.js, React, Tailwind CSS
+- **Animations**: Framer Motion
+- **UI Components**: Radix UI
+- **Icons**: React Icons
+- **Typography**: JetBrains Mono (Google Fonts)
 
 ## Getting Started
 

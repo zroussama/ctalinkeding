@@ -5,7 +5,7 @@ import Photo from "@/components/Photo";
 import Social from "@/components/Social";
 import Stats from "@/components/Stats";
 import { Button } from "@/components/ui/button";
-import { FiDownload } from "react-icons/fi";
+import { FiDownload, FiMessageSquare } from "react-icons/fi";
 
 const Home = () => {
   // Create a ref to attach Typed.js
@@ -42,7 +42,6 @@ const Home = () => {
         <div className="flex flex-col items-center justify-between xl:flex-row xl:pt-8 xl:pb-24">
           {/* text */}
           <div className="order-2 text-center xl:text-left xl:order-none">
-            <span className="text-xl">Software Architect Engineer</span>
             <h1 className="mb-6 h1">
               Hello I am <br />
               <span className="text-accent">
@@ -56,7 +55,8 @@ const Home = () => {
             <h1 className="mb-6 h3">Let s Collaborate</h1>
             <p className="max-w-[500px] mb-9 text-white/80 ">Whether you need a data-driven approach to your next project or a refined digital solution, I am open to opportunities to collaborate and create impactful experiences.</p>
             {/* btn & socials */}
-            <div className="flex flex-col items-center gap-8 xl:flex-row">
+            <div className="flex flex-col items-center gap-4 xl:flex-row">
+              {/* Download CV Button */}
               <Button
                 variant="outline"
                 size="lg"
@@ -65,6 +65,20 @@ const Home = () => {
                 <span>Download CV</span>
                 <FiDownload className="text-xl" />
               </Button>
+              
+              {/* Chat CTA Button */}
+              <Button 
+                onClick={() => {
+                  const chatButton = document.querySelector('[aria-label="Open chat"]');
+                  if (chatButton) chatButton.click();
+                }}
+                className="flex items-center gap-2 uppercase bg-accent text-primary hover:bg-accent/90"
+                size="lg"
+              >
+                <FiMessageSquare className="text-xl" />
+                <span>Chat with me</span>
+              </Button>
+              
               <div className="mb-8 xl:mb-0">
                 <Social
                   containerStyles="flex gap-6"

@@ -1,28 +1,24 @@
-import { JetBrains_Mono } from "next/font/google";
-import "./globals.css";
-// Components
-import Header from "@/components/Header";
-import PageTransition from "./pageTransition";
-import StairTransition from "./StairTransition";
+import { Inter } from 'next/font/google';
+import './globals.css';
+import Header from '@/components/Header';
+import ChatWidget from '@/components/ChatWidget';
 
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
-  variable: "--font-jetbrainsMono",
-});
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: "OhZed",
-  description: "Portfolio Oussama Zribi software engineer",
+  title: 'Portfolio - Oussama Zribi',
+  description: 'Portfolio of Oussama Zribi - Software Architect & Developer',
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={jetbrainsMono.variable}>
+      <body className={`${inter.className} relative bg-primary text-white`}>
         <Header />
-        <StairTransition />  
-        <PageTransition>{children}</PageTransition>
+        <main>
+          {children}
+        </main>
+        <ChatWidget />
       </body>
     </html>
   );
