@@ -417,7 +417,7 @@ const ChatWidget = () => {
           <div className="bg-accent text-primary p-4">
             <div className="flex justify-between items-start">
               <div className="flex-1">
-                <h3 className="font-semibold text-lg">Oussama's Assistant</h3>
+                <h3 className="font-semibold text-lg">Oussama s Assistant</h3>
                 <p className="text-xs text-primary/80">AI-powered responses</p>
               </div>
               <button
