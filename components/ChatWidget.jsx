@@ -7,6 +7,7 @@ const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   // Conversation flow states
   const [conversationContext, setConversationContext] = useState("welcome");
+  const [previousContext, setPreviousContext] = useState("welcome");
 
   const [messages, setMessages] = useState([
     {
@@ -30,18 +31,77 @@ const ChatWidget = () => {
     grokRemaining: 30,
     geminiRemaining: 15,
   });
-  const messagesEndRef = useRef(null);
+  const renderMarkdown = (text) => {
+    // Handle line breaks
+    let formattedText = text.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>');
 
+    // Handle bold text **text**
+    formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+    // Handle italic text *text*
+    formattedText = formattedText.replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+    // Handle bullet points
+    formattedText = formattedText.replace(/^- (.*)/gm, '• $1');
+
+    // Handle numbered lists
+    formattedText = formattedText.replace(/^(\d+)\. (.*)/gm, '<p>$1. $2</p>');
+
+    // Wrap in paragraph if not already wrapped
+    if (!formattedText.startsWith('<p>')) {
+      formattedText = '<p>' + formattedText + '</p>';
+    }
+    return formattedText;
+  };
+
+  const [isUserScrolling, setIsUserScrolling] = useState(false);
+  const scrollTimeoutRef = useRef(null);
+  const messagesEndRef = useRef(null);
   // ⚠️ IMPORTANT: Replace with your actual n8n webhook URL
   const WEBHOOK_URL = "http://localhost:5678/webhook-test/chat";
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  const scrollToBottom = (force = false) => {
+    if (messagesEndRef.current) {
+      const element = messagesEndRef.current;
+      const container = element.parentElement;
+
+      if (container) {
+        // Check if user is near bottom (within 100px) or force scroll
+        const isNearBottom = container.scrollHeight - container.scrollTop - container.clientHeight < 100;
+
+        if (force || isNearBottom) {
+          element.scrollIntoView({
+            behavior: "smooth",
+            block: "end",
+            inline: "nearest"
+          });
+        }
+      } else {
+        // Fallback to direct scroll if container not found
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
   };
 
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsUserScrolling(true);
+      clearTimeout(scrollTimeoutRef.current);
+      scrollTimeoutRef.current = setTimeout(() => {
+        setIsUserScrolling(false);
+      }, 500);
+    };
+
+    const container = messagesEndRef.current?.parentElement;
+    if (container) {
+      container.addEventListener("scroll", handleScroll);
+      return () => container.removeEventListener("scroll", handleScroll);
+    }
+  }, []);
 
   const getConversationHistory = () => {
     // Send last 6 messages (3 exchanges) for context
@@ -58,10 +118,12 @@ const ChatWidget = () => {
     // Welcome context
     if (conversationContext === "welcome") {
       if (message.includes("project") || message.includes("🚀")) {
+        setPreviousContext(conversationContext);
         setConversationContext("projects");
         return {
-          text: "Oussama has built advanced full-stack apps, automation workflows, and AI tools across multiple domains.\n\n**Core Expertise Areas:**\n\n🧩 **Data Engineering**\n• ETL & ELT Pipeline Development\n• Real-time Data Processing\n• Data Warehousing\n• Data Modeling, Architecture & Governance\n\n💻 **Software Development**\n• Backend: Python, Java (Spring Boot), PHP (Laravel)\n• Frontend: React, Angular, Next.js\n• Databases: PostgreSQL, MongoDB, MySQL, Redis, Elasticsearch, Meilisearch\n• API Design: REST, GraphQL\n\n⚙️ **DevOps & Cloud**\n• CI/CD: Jenkins, GitLab CI, GitHub Actions\n• Monitoring: Prometheus, Grafana\n• Containers & Deployment: Docker, Kubernetes\n• Version Control: GitHub, GitLab\n• Agile / Scrum Methodologies\n\nWhich type of project would you like to explore?",
+          text: "**Oussama has built advanced full-stack apps, automation workflows, and AI tools across multiple domains.**\n\n**Core Expertise Areas:**\n\n🧩 **Data Engineering**\n• ETL & ELT Pipeline Development\n• Real-time Data Processing\n• Data Warehousing\n• Data Modeling, Architecture & Governance\n\n💻 **Software Development**\n• Backend: Python, Java (Spring Boot), PHP (Laravel)\n• Frontend: React, Angular, Next.js\n• Databases: PostgreSQL, MongoDB, MySQL, Redis, Elasticsearch, Meilisearch\n• API Design: REST, GraphQL\n\n⚙️ **DevOps & Cloud**\n• CI/CD: Jenkins, GitLab CI, GitHub Actions\n• Monitoring: Prometheus, Grafana\n• Containers & Deployment: Docker, Kubernetes\n• Version Control: GitHub, GitLab\n• Agile / Scrum Methodologies\n\n*Which type of project would you like to explore?*",
           suggestedReplies: [
+            "🔙 Back",
             "⚙️ Full-Stack Web Apps",
             "🤖 AI & Automation (n8n, AgentKit)",
             "📊 Data architecture Projects",
@@ -69,10 +131,12 @@ const ChatWidget = () => {
           ],
         };
       } else if (message.includes("experience") || message.includes("💼")) {
+        setPreviousContext(conversationContext);
         setConversationContext("experience");
         return {
           text: "Oussama's experience spans CRM systems, data pipelines, and scalable cloud apps.\n\nWant a quick overview or a deep dive into one?",
           suggestedReplies: [
+            "🔙 Back",
             "📋 Career timeline",
             "🏢 Companies & internships",
             "🧩 Technical achievements",
@@ -80,10 +144,12 @@ const ChatWidget = () => {
           ],
         };
       } else if (message.includes("contact") || message.includes("📩")) {
+        setPreviousContext(conversationContext);
         setConversationContext("contact");
         return {
           text: "You can reach Oussama directly or connect professionally.\n\nWhich do you prefer?",
           suggestedReplies: [
+            "🔙 Back",
             "📧 Send an email",
             "🔗 Visit LinkedIn",
             "💻 View GitHub",
@@ -96,6 +162,7 @@ const ChatWidget = () => {
         return {
           text: "He's fluent across the full stack — from frontend to cloud automation.\n\nCurious about a specific area?",
           suggestedReplies: [
+            "🔙 Back",
             "🖥️ Frontend (React, Next.js)",
             "🧠 Backend (Node.js, Laravel)",
             "☁️ DevOps (Docker, CI/CD)",
@@ -107,11 +174,24 @@ const ChatWidget = () => {
 
     // Projects context
     else if (conversationContext === "projects") {
+      if (message.includes("back") || message.includes("🔙")) {
+        setConversationContext(previousContext);
+        return {
+          text: "👋 Back to previous menu. What would you like to explore?",
+          suggestedReplies: [
+            "🚀 View recent projects",
+            "💼 Explore experience",
+            "📩 Get in touch",
+            "🧠 Skills & tech stack",
+          ],
+        };
+      }
       // Add specific project details here
       return {
         text: `You selected: ${message}\n\n[Project details would be shown here with relevant information about ${message}]`,
         suggestedReplies: [
-          "🔙 Back to main menu",
+          "🔙 Back",
+          "🏠 Back to main menu",
           "📂 View another category",
           "📞 Contact about this",
         ],
@@ -120,63 +200,117 @@ const ChatWidget = () => {
 
     // Experience context
     else if (conversationContext === "experience") {
+      if (message.includes("back") || message.includes("🔙")) {
+        setConversationContext(previousContext);
+        return {
+          text: "👋 Back to previous menu. What would you like to explore?",
+          suggestedReplies: [
+            "🚀 View recent projects",
+            "💼 Explore experience",
+            "📩 Get in touch",
+            "🧠 Skills & tech stack",
+          ],
+        };
+      }
       // Add specific experience details here
       return {
         text: `You selected: ${message}\n\n[Experience details would be shown here for ${message}]`,
         suggestedReplies: [
-          "🔙 Back to main menu",
+          "🔙 Back",
+          "🏠 Back to main menu",
           "📅 View timeline",
           "📞 Contact about experience",
         ],
       };
     }
 
+    // Contact context
+    else if (conversationContext === "contact") {
+      if (message.includes("back") || message.includes("🔙")) {
+        setConversationContext(previousContext);
+        return {
+          text: "👋 Back to previous menu. What would you like to explore?",
+          suggestedReplies: [
+            "🚀 View recent projects",
+            "💼 Explore experience",
+            "📩 Get in touch",
+            "🧠 Skills & tech stack",
+          ],
+        };
+      }
       if (message.includes("email") || message.includes("📧")) {
         return {
-          text: "📧 You can email Oussama at: oussama2101@gmail.com\n\nAn email template will open with a pre-filled subject to make contacting easier.",
+          text: "**📧 You can email Oussama at:** oussama2101@gmail.com\n\n*An email template will open with a pre-filled subject to make contacting easier.*",
           suggestedReplies: [
-            "🔙 Back to contact options",
+            "🔙 Back",
             "📞 Schedule a call",
             "🏠 Back to main menu",
           ],
         };
       } else if (message.includes("linkedin") || message.includes("🔗")) {
         return {
-          text: "🔗 Connect with Oussama on LinkedIn:\nhttps://linkedin.com/in/zroussama\n\nThis platform is ideal for exploring his professional background and recommendations.",
+          text: "**🔗 Connect with Oussama on LinkedIn:**\nhttps://linkedin.com/in/zroussama\n\n*This platform is ideal for exploring his professional background and recommendations.*",
           suggestedReplies: [
-            "🔙 Back to contact options",
+            "🔙 Back",
             "📧 Email instead",
             "🏠 Back to main menu",
           ],
         };
       } else if (message.includes("github") || message.includes("💻")) {
         return {
-          text: "💻 Check out Oussama's GitHub:\nhttps://github.com/zroussama\n\nYou'll find his open-source projects and technical contributions there.",
+          text: "**💻 Check out Oussama's GitHub:**\nhttps://github.com/zroussama\n\n*You'll find his open-source projects and technical contributions there.*",
           suggestedReplies: [
-            "🔙 Back to contact options",
+            "🔙 Back",
             "🌟 Star a repo",
             "🏠 Back to main menu",
           ],
         };
       } else if (message.includes("portfolio") || message.includes("🌐")) {
         return {
-          text: "🌐 Visit Oussama's portfolio:\nhttps://ohzed.netlify.app/\n\nYou'll find a detailed presentation of his projects, skills, and professional experience.",
+          text: "**🌐 Visit Oussama's portfolio:**\nhttps://ohzed.netlify.app/\n\n*You'll find a detailed presentation of his projects, skills, and professional experience.*",
           suggestedReplies: [
-            "🔙 Back to contact options",
+            "🔙 Back",
             "📧 Contact for a project",
             "🏠 Back to main menu",
           ],
         };
       } else if (message.includes("schedule") || message.includes("👋")) {
         return {
-          text: "📅 Schedule a meeting with Oussama:\nYou can contact him via email (oussama2101@gmail.com) or LinkedIn to set up a call.\n\nOr check out his portfolio for more information: https://ohzed.netlify.app/",
+          text: "**📅 Schedule a meeting with Oussama:**\n*You can contact him via email (oussama2101@gmail.com) or LinkedIn to set up a call.*\n\n*Or check out his portfolio for more information:* https://ohzed.netlify.app/",
           suggestedReplies: [
-            "🔙 Back to contact options",
+            "🔙 Back",
             "📧 Email to schedule",
             "🏠 Back to main menu",
           ],
         };
       }
+    }
+
+    // Skills context
+    else if (conversationContext === "skills") {
+      if (message.includes("back") || message.includes("🔙")) {
+        setConversationContext(previousContext);
+        return {
+          text: "👋 Back to previous menu. What would you like to explore?",
+          suggestedReplies: [
+            "🚀 View recent projects",
+            "💼 Explore experience",
+            "📩 Get in touch",
+            "🧠 Skills & tech stack",
+          ],
+        };
+      }
+      // Add specific skills details here
+      return {
+        text: `You selected: ${message}\n\n[Skills details would be shown here for ${message}]`,
+        suggestedReplies: [
+          "🔙 Back",
+          "🏠 Back to main menu",
+          "📚 View all skills",
+          "💼 Experience with this skill",
+        ],
+      };
+    }
 
     // Default fallback response
     if (
@@ -198,7 +332,7 @@ const ChatWidget = () => {
 
     // Default response for unhandled messages
     return {
-      text: "I'm not sure how to respond to that. Let me help you explore Oussama's professional background!\n\n**Quick Overview:**\nOussama Zribi is a Software Architect & Data Engineer based in Tunis, Tunisia, with expertise in full-stack development and data systems.\n\n**🎓 Education & Certifications:**\n• Software Engineering — ESPRIT, École d'Ingénieurs\n• Business Intelligence License — Université Lyon Claude Bernard\n• Business Computing License — ESPRIT School of Business\n\n**🚀 Key Projects:**\n• ComUnity CRM Platform — Client management and network visualization app (Laravel + React + ReactFlow + Meilisearch)\n• Data Pipeline Automation — ETL workflow reducing manual data handling by 60% using SSIS and PostgreSQL\n• BI Dashboard — Real-time business insights system improving decision metrics by 45%\n\n**📬 Contact Information:**\n• Email: oussama2101@gmail.com\n• LinkedIn: linkedin.com/in/zroussama\n• GitHub: github.com/zroussama\n• Portfolio: https://ohzed.netlify.app/\n\nWhat would you like to know more about?",
+      text: "I'm not sure how to respond to that. Let me help you explore Oussama's professional background!\n\n**Quick Overview:**\n*Oussama Zribi is a Software Architect & Data Engineer based in Tunis, Tunisia, with expertise in full-stack development and data systems.*\n\n**🎓 Education & Certifications:**\n• Software Engineering — ESPRIT, École d'Ingénieurs\n• Business Intelligence License — Université Lyon Claude Bernard\n• Business Computing License — ESPRIT School of Business\n\n**🚀 Key Projects:**\n• ComUnity CRM Platform — Client management and network visualization app (Laravel + React + ReactFlow + Meilisearch)\n• Data Pipeline Automation — ETL workflow reducing manual data handling by 60% using SSIS and PostgreSQL\n• BI Dashboard — Real-time business insights system improving decision metrics by 45%\n\n**📬 Contact Information:**\n• **Email:** oussama2101@gmail.com\n• **LinkedIn:** linkedin.com/in/zroussama\n• **GitHub:** github.com/zroussama\n• **Portfolio:** https://ohzed.netlify.app/\n\n*What would you like to know more about?*",
       suggestedReplies: [
         "🚀 View projects",
         "💼 Experience",
@@ -407,6 +541,38 @@ const ChatWidget = () => {
 
   return (
     <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50">
+      <style jsx>{`
+        .markdown-content {
+          font-size: 0.875rem;
+          line-height: 1.625;
+        }
+
+        .markdown-content strong {
+          font-weight: 600;
+        }
+
+        .markdown-content em {
+          font-style: italic;
+        }
+
+        .markdown-content p {
+          margin: 0 0 0.75rem 0;
+        }
+
+        .markdown-content p:last-child {
+          margin-bottom: 0;
+        }
+
+        .markdown-content br {
+          display: block;
+          margin: 0.25rem 0;
+          content: "";
+        }
+
+        .markdown-content • {
+          margin-left: 1rem;
+        }
+      `}</style>
       {!isOpen ? (
         <button
           onClick={() => setIsOpen(true)}
@@ -446,9 +612,10 @@ const ChatWidget = () => {
                         ? "bg-orange-50 dark:bg-orange-900/30 text-orange-900 dark:text-orange-100 shadow-sm rounded-bl-none border border-orange-200 dark:border-orange-800"
                         : "bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 shadow-sm rounded-bl-none border border-gray-200 dark:border-gray-600"
                     }`}>
-                      <p className="text-sm leading-relaxed whitespace-pre-wrap break-words">
-                        {message.text}
-                      </p>
+                      <div
+                        className="text-sm leading-relaxed break-words markdown-content"
+                        dangerouslySetInnerHTML={{ __html: renderMarkdown(message.text) }}
+                      />
                     </div>
                     {message.type === "bot" && message.provider && (
                       <div className="mt-1">
