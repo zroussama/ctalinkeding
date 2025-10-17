@@ -587,13 +587,13 @@ const ChatWidget = () => {
           <div className="bg-accent text-primary p-4">
             <div className="flex justify-between items-start">
               <div className="flex-1">
-                <h3 className="font-semibold text-lg">Assistant de Oussama</h3>
-                <p className="text-xs text-primary/80">Réponses alimentées par l'IA</p>
+                <h3 className="font-semibold text-lg">Oussama s Assistant</h3>
+                <p className="text-xs text-primary/80">AI-powered responses</p>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
                 className="hover:bg-primary/10 rounded-full p-1 transition-colors"
-                aria-label="Fermer le chat"
+                aria-label="Close chat"
               >
                 <X size={20} />
               </button>
@@ -652,10 +652,10 @@ const ChatWidget = () => {
                     <Loader2 size={16} className="animate-spin" />
                     <span className="text-sm">
                       {currentProvider === "grok"
-                        ? "Grok réfléchit..."
+                        ? "Grok is thinking..."
                         : currentProvider === "gemini"
-                        ? "Gemini réfléchit..."
-                        : "Réflexion en cours..."}
+                        ? "Gemini is thinking..."
+                        : "Thinking..."}
                     </span>
                   </div>
                 </div>
@@ -672,7 +672,7 @@ const ChatWidget = () => {
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder="Tapez votre message..."
+                placeholder="Type your message..."
                 disabled={isLoading}
                 maxLength={500}
                 className="flex-1 border text-black border-gray-300 dark:border-gray-600 rounded-full px-3 sm:px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-sm disabled:bg-gray-100 dark:disabled:bg-gray-800 disabled:cursor-not-allowed dark:bg-gray-800 dark:text-white"
@@ -681,18 +681,18 @@ const ChatWidget = () => {
                 onClick={handleSendClick}
                 disabled={!inputMessage.trim() || isLoading}
                 className="bg-accent hover:bg-accent/90 disabled:bg-gray-300 dark:disabled:bg-gray-600 disabled:cursor-not-allowed text-primary rounded-full p-2 transition-colors flex-shrink-0"
-                aria-label="Envoyer le message"
+                aria-label="Send message"
               >
                 <Send size={20} />
               </button>
             </div>
             <div className="flex justify-between items-center mt-2">
               <p className="text-xs text-gray-400 hidden sm:block">
-                Fait avec amour · {inputMessage.length}/500
+                Made with Love · {inputMessage.length}/500
               </p>
               {currentProvider && (
                 <p className="text-xs text-gray-500 dark:text-gray-400">
-                  Utilisation :{" "}
+                  used :{" "}
                   {currentProvider === "grok"
                     ? "⚡ Grok"
                     : currentProvider === "gemini"
