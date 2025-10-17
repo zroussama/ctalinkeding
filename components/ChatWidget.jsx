@@ -280,77 +280,74 @@ const ChatWidget = () => {
     } catch (error) {
       console.error("Error sending message:", error);
 
-      let errorMessage;
-      if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
-        errorMessage = {
-          type: 'bot',
-          text: "🔌 I'm having trouble connecting to the chat service. Please check your internet connection and try again.",
-          suggestedReplies: ["🔄 Try again", "📧 Email me", "🔗 LinkedIn"]
-        };
-      } else if (error.message.includes('404')) {
-        errorMessage = {
-          type: 'bot',
-          text: "🔍 The chat service endpoint wasn't found. The webhook URL might be incorrect.",
-          suggestedReplies: ["🔄 Retry", "📧 Contact directly"]
-        };
-      } else if (error.message.includes('500')) {
-        errorMessage = {
-          type: 'bot',
-          text: "⚠️ The chat service encountered an error. Please try again in a moment.",
-          suggestedReplies: ["🔄 Try again", "📧 Email instead"]
-        };
-      } else {
-        errorMessage = {
-          type: 'bot',
-          text: "❌ Oops! Something went wrong. Please try again or contact me directly.",
-          suggestedReplies: ["🔄 Try again", "📧 Email me", "🔗 LinkedIn"]
-        };
-      }
+      // Try to get contextual response first when webhook fails
+      const contextualResponse = getContextualResponse(textToSend);
 
-      if (
-        error.message.includes("Failed to fetch") ||
-        error.message.includes("NetworkError")
-      ) {
-        errorMessage = {
+      // If we have a contextual response, use it instead of error message
+      if (contextualResponse && contextualResponse.text && !contextualResponse.text.includes("I'm not sure")) {
+        const botMessage = {
           type: "bot",
-          text: "🔌 Oops! I couldn't connect to the chat service. This might be because:\n\n• The n8n server isn't running locally\n• The webhook URL is incorrect\n• There's a network issue\n\nYou can try again or contact me directly.",
-          suggestedReplies: [
+          text: contextualResponse.text,
+          suggestedReplies: contextualResponse.suggestedReplies || [
             "🔄 Try again",
             "📧 Email me",
             "🔗 LinkedIn",
             "💻 GitHub",
           ],
+          provider: "local",
         };
-      } else if (error.message.includes("404")) {
-        errorMessage = {
-          type: "bot",
-          text: "🔍 The chat service endpoint wasn't found. The webhook URL might be incorrect or the n8n workflow isn't properly set up.",
-          suggestedReplies: [
-            "🔄 Retry",
-            "📧 Contact directly",
-            "📋 View setup guide",
-          ],
-        };
-      } else if (error.message.includes("500")) {
-        errorMessage = {
-          type: "bot",
-          text: "⚠️ The chat service encountered an error. This is likely a temporary issue on the server side.",
-          suggestedReplies: [
-            "🔄 Try again",
-            "📧 Email instead",
-            "📞 Schedule a call",
-          ],
-        };
+        setMessages((prev) => [...prev, botMessage]);
       } else {
-        errorMessage = {
-          type: "bot",
-          text: "❌ Oops! Something went wrong. Please try again or contact me directly.",
-          suggestedReplies: ["🔄 Try again", "📧 Email me", "🔗 LinkedIn"],
-        };
-      }
+        // Fallback to error messages if no contextual response
+        let errorMessage;
+        if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+          errorMessage = {
+            type: 'bot',
+            text: "🔌 I couldn't connect to the chat service, but I can still help with local responses!\n\nWhat would you like to know about Oussama?",
+            suggestedReplies: [
+              "🚀 View projects",
+              "💼 Experience",
+              "📩 Contact info",
+              "🧠 Skills",
+            ]
+          };
+        } else if (error.message.includes('404')) {
+          errorMessage = {
+            type: 'bot',
+            text: "🔍 Chat service not found, but I have local knowledge about Oussama's work.\n\nWhat interests you?",
+            suggestedReplies: [
+              "🚀 View projects",
+              "💼 Experience",
+              "📩 Contact info",
+              "🧠 Skills",
+            ]
+          };
+        } else if (error.message.includes('500')) {
+          errorMessage = {
+            type: 'bot',
+            text: "⚠️ Service temporarily down, but I can share information about Oussama locally.\n\nChoose a topic:",
+            suggestedReplies: [
+              "🚀 View projects",
+              "💼 Experience",
+              "📩 Contact info",
+              "🧠 Skills",
+            ]
+          };
+        } else {
+          errorMessage = {
+            type: 'bot',
+            text: "❌ Connection issue, but I have Oussama's information ready locally!\n\nWhat would you like to explore?",
+            suggestedReplies: [
+              "🚀 View projects",
+              "💼 Experience",
+              "📩 Contact info",
+              "🧠 Skills",
+            ]
+          };
+        }
 
-      // Add the error message to the chat
-      setMessages((prev) => [...prev, errorMessage]);
+        setMessages((prev) => [...prev, errorMessage]);
+      }
     } finally {
       setIsLoading(false);
     }
