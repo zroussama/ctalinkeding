@@ -60,12 +60,12 @@ const ChatWidget = () => {
       if (message.includes("project") || message.includes("🚀")) {
         setConversationContext("projects");
         return {
-          text: "Oussama has built advanced full-stack apps, automation workflows, and AI tools.\n\nWhich type of project would you like to see?",
+          text: "Oussama has built advanced full-stack apps, automation workflows, and AI tools across multiple domains.\n\n**Core Expertise Areas:**\n\n🧩 **Data Engineering**\n• ETL & ELT Pipeline Development\n• Real-time Data Processing\n• Data Warehousing\n• Data Modeling, Architecture & Governance\n\n💻 **Software Development**\n• Backend: Python, Java (Spring Boot), PHP (Laravel)\n• Frontend: React, Angular, Next.js\n• Databases: PostgreSQL, MongoDB, MySQL, Redis, Elasticsearch, Meilisearch\n• API Design: REST, GraphQL\n\n⚙️ **DevOps & Cloud**\n• CI/CD: Jenkins, GitLab CI, GitHub Actions\n• Monitoring: Prometheus, Grafana\n• Containers & Deployment: Docker, Kubernetes\n• Version Control: GitHub, GitLab\n• Agile / Scrum Methodologies\n\nWhich type of project would you like to explore?",
           suggestedReplies: [
             "⚙️ Full-Stack Web Apps",
             "🤖 AI & Automation (n8n, AgentKit)",
-            "📊 Data Science Projects",
-            "🌐 Cloud & DevOps",
+            "📊 Data architecture Projects",
+            "🌐 BI & Dashboards",
           ],
         };
       } else if (message.includes("experience") || message.includes("💼")) {
@@ -87,6 +87,7 @@ const ChatWidget = () => {
             "📧 Send an email",
             "🔗 Visit LinkedIn",
             "💻 View GitHub",
+            "🌐 View Portfolio",
             "👋 Schedule a meeting",
           ],
         };
@@ -130,11 +131,9 @@ const ChatWidget = () => {
       };
     }
 
-    // Contact context
-    else if (conversationContext === "contact") {
       if (message.includes("email") || message.includes("📧")) {
         return {
-          text: "📧 You can email Oussama at: oussama2101@gmail.com\n\n[Email template would open with pre-filled subject/body]",
+          text: "📧 You can email Oussama at: oussama2101@gmail.com\n\nAn email template will open with a pre-filled subject to make contacting easier.",
           suggestedReplies: [
             "🔙 Back to contact options",
             "📞 Schedule a call",
@@ -143,7 +142,7 @@ const ChatWidget = () => {
         };
       } else if (message.includes("linkedin") || message.includes("🔗")) {
         return {
-          text: "🔗 Connect with Oussama on LinkedIn:\nhttps://linkedin.com/in/zroussama\n\n[Would open in new tab with tracking]",
+          text: "🔗 Connect with Oussama on LinkedIn:\nhttps://linkedin.com/in/zroussama\n\nThis platform is ideal for exploring his professional background and recommendations.",
           suggestedReplies: [
             "🔙 Back to contact options",
             "📧 Email instead",
@@ -152,24 +151,32 @@ const ChatWidget = () => {
         };
       } else if (message.includes("github") || message.includes("💻")) {
         return {
-          text: "💻 Check out Oussama's GitHub:\nhttps://github.com/zroussama\n\n[Would open in new tab with tracking]",
+          text: "💻 Check out Oussama's GitHub:\nhttps://github.com/zroussama\n\nYou'll find his open-source projects and technical contributions there.",
           suggestedReplies: [
             "🔙 Back to contact options",
             "🌟 Star a repo",
             "🏠 Back to main menu",
           ],
         };
-      } else if (message.includes("schedule") || message.includes("👋")) {
+      } else if (message.includes("portfolio") || message.includes("🌐")) {
         return {
-          text: "📅 Schedule a meeting with Oussama:\n[Calendar booking widget would be embedded here]\n\nOr suggest a time that works for you.",
+          text: "🌐 Visit Oussama's portfolio:\nhttps://ohzed.netlify.app/\n\nYou'll find a detailed presentation of his projects, skills, and professional experience.",
           suggestedReplies: [
             "🔙 Back to contact options",
-            "📧 Email instead",
+            "📧 Contact for a project",
+            "🏠 Back to main menu",
+          ],
+        };
+      } else if (message.includes("schedule") || message.includes("👋")) {
+        return {
+          text: "📅 Schedule a meeting with Oussama:\nYou can contact him via email (oussama2101@gmail.com) or LinkedIn to set up a call.\n\nOr check out his portfolio for more information: https://ohzed.netlify.app/",
+          suggestedReplies: [
+            "🔙 Back to contact options",
+            "📧 Email to schedule",
             "🏠 Back to main menu",
           ],
         };
       }
-    }
 
     // Default fallback response
     if (
@@ -191,7 +198,7 @@ const ChatWidget = () => {
 
     // Default response for unhandled messages
     return {
-      text: "I'm not sure how to respond to that. Would you like to see the main menu options?",
+      text: "I'm not sure how to respond to that. Let me help you explore Oussama's professional background!\n\n**Quick Overview:**\nOussama Zribi is a Software Architect & Data Engineer based in Tunis, Tunisia, with expertise in full-stack development and data systems.\n\n**🎓 Education & Certifications:**\n• Software Engineering — ESPRIT, École d'Ingénieurs\n• Business Intelligence License — Université Lyon Claude Bernard\n• Business Computing License — ESPRIT School of Business\n\n**🚀 Key Projects:**\n• ComUnity CRM Platform — Client management and network visualization app (Laravel + React + ReactFlow + Meilisearch)\n• Data Pipeline Automation — ETL workflow reducing manual data handling by 60% using SSIS and PostgreSQL\n• BI Dashboard — Real-time business insights system improving decision metrics by 45%\n\n**📬 Contact Information:**\n• Email: oussama2101@gmail.com\n• LinkedIn: linkedin.com/in/zroussama\n• GitHub: github.com/zroussama\n• Portfolio: https://ohzed.netlify.app/\n\nWhat would you like to know more about?",
       suggestedReplies: [
         "🚀 View projects",
         "💼 Experience",
@@ -402,64 +409,47 @@ const ChatWidget = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50">
       {!isOpen ? (
         <button
           onClick={() => setIsOpen(true)}
-          className="bg-accent hover:bg-accent/90 text-primary rounded-full p-4 shadow-lg transition-all duration-300 hover:scale-110 flex items-center gap-2"
+          className="bg-accent hover:bg-accent/90 text-primary rounded-full p-3 sm:p-4 shadow-lg transition-all duration-300 hover:scale-110 flex items-center gap-2"
           aria-label="Open chat"
         >
           <MessageCircle size={24} />
-          <span className="text-sm font-medium pr-2">Chat with me</span>
+          <span className="text-xs sm:text-sm font-medium pr-1 sm:pr-2">Chat</span>
         </button>
       ) : (
-        <div className="bg-white dark:bg-gray-900 rounded-lg shadow-2xl w-96 h-[600px] flex flex-col overflow-hidden border border-gray-200 dark:border-gray-700">
+        <div className="bg-white dark:bg-gray-900 rounded-lg shadow-2xl w-[calc(100vw-2rem)] sm:w-96 h-[80vh] max-h-[700px] flex flex-col overflow-hidden border border-gray-200 dark:border-gray-700 transform transition-all duration-300 ease-in-out">
           <div className="bg-accent text-primary p-4">
             <div className="flex justify-between items-start">
               <div className="flex-1">
-                <h3 className="font-semibold text-lg">Oussama s Assistant</h3>
-                <p className="text-xs text-primary/80">AI-powered responses</p>
+                <h3 className="font-semibold text-lg">Assistant de Oussama</h3>
+                <p className="text-xs text-primary/80">Réponses alimentées par l'IA</p>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
                 className="hover:bg-primary/10 rounded-full p-1 transition-colors"
-                aria-label="Close chat"
+                aria-label="Fermer le chat"
               >
                 <X size={20} />
               </button>
             </div>
-
-            <div className="mt-2 flex gap-2 text-xs">
-              <div className="bg-primary/10 rounded px-2 py-1 flex items-center gap-1">
-                <Zap size={10} />
-                <span>Grok: {rateLimitInfo.grokRemaining}/30</span>
-              </div>
-              <div className="bg-primary/10 rounded px-2 py-1 flex items-center gap-1">
-                <Brain size={10} />
-                <span>Gemini: {rateLimitInfo.geminiRemaining}/15</span>
-              </div>
-            </div>
           </div>
-
+          
           <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 dark:bg-gray-800">
             {messages.map((message, index) => (
-              <div key={index}>
-                <div
-                  className={`flex ${
-                    message.type === "user" ? "justify-end" : "justify-start"
-                  }`}
-                >
-                  <div className="max-w-[80%]">
-                    <div
-                      className={`rounded-2xl px-4 py-2 ${
-                        message.type === "user"
-                          ? "bg-accent text-primary rounded-br-none"
-                          : message.rateLimited
-                          ? "bg-orange-50 dark:bg-orange-900/30 text-orange-900 dark:text-orange-100 shadow-sm rounded-bl-none border border-orange-200 dark:border-orange-800"
-                          : "bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 shadow-sm rounded-bl-none border border-gray-200 dark:border-gray-600"
-                      }`}
-                    >
-                      <p className="text-sm leading-relaxed whitespace-pre-wrap">
+              <div key={index} className="w-full">
+                <div className={`flex ${message.type === "user" ? "justify-end" : "justify-start"}`}>
+                  <div className="max-w-[90%] sm:max-w-[80%]">
+                    <div className={`rounded-2xl px-4 py-2 ${
+                      message.type === "user"
+                        ? "bg-accent text-primary rounded-br-none"
+                        : message.rateLimited
+                        ? "bg-orange-50 dark:bg-orange-900/30 text-orange-900 dark:text-orange-100 shadow-sm rounded-bl-none border border-orange-200 dark:border-orange-800"
+                        : "bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 shadow-sm rounded-bl-none border border-gray-200 dark:border-gray-600"
+                    }`}>
+                      <p className="text-sm leading-relaxed whitespace-pre-wrap break-words">
                         {message.text}
                       </p>
                     </div>
@@ -475,13 +465,13 @@ const ChatWidget = () => {
                   message.suggestedReplies &&
                   message.suggestedReplies.length > 0 &&
                   index === messages.length - 1 && (
-                    <div className="flex flex-wrap gap-2 mt-2 ml-2">
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-2 ml-0 sm:ml-2">
                       {message.suggestedReplies.map((reply, i) => (
                         <button
                           key={i}
                           onClick={() => handleSuggestedReply(reply)}
                           disabled={isLoading}
-                          className="text-xs bg-white dark:bg-gray-700 hover:bg-accent/20 dark:hover:bg-accent/30 text-black dark:text-white border border-gray-300 dark:border-gray-500 rounded-full px-3 py-1.5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm hover:shadow-md"
+                          className="text-xs bg-white dark:bg-gray-700 hover:bg-accent/20 dark:hover:bg-accent/30 text-black dark:text-white border border-gray-300 dark:border-gray-500 rounded-full px-2.5 py-1 sm:px-3 sm:py-1.5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm hover:shadow-md flex-shrink-0"
                         >
                           {reply}
                         </button>
@@ -498,10 +488,10 @@ const ChatWidget = () => {
                     <Loader2 size={16} className="animate-spin" />
                     <span className="text-sm">
                       {currentProvider === "grok"
-                        ? "Grok thinking..."
+                        ? "Grok réfléchit..."
                         : currentProvider === "gemini"
-                        ? "Gemini thinking..."
-                        : "Thinking..."}
+                        ? "Gemini réfléchit..."
+                        : "Réflexion en cours..."}
                     </span>
                   </div>
                 </div>
@@ -518,32 +508,32 @@ const ChatWidget = () => {
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder="Type your message..."
+                placeholder="Tapez votre message..."
                 disabled={isLoading}
                 maxLength={500}
-                className="flex-1 border text-black border-gray-300 dark:border-gray-600 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-sm disabled:bg-gray-100 dark:disabled:bg-gray-800 disabled:cursor-not-allowed dark:bg-gray-800 dark:text-white"
+                className="flex-1 border text-black border-gray-300 dark:border-gray-600 rounded-full px-3 sm:px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-sm disabled:bg-gray-100 dark:disabled:bg-gray-800 disabled:cursor-not-allowed dark:bg-gray-800 dark:text-white"
               />
               <button
                 onClick={handleSendClick}
                 disabled={!inputMessage.trim() || isLoading}
-                className="bg-accent hover:bg-accent/90 disabled:bg-gray-300 dark:disabled:bg-gray-600 disabled:cursor-not-allowed text-primary rounded-full p-2 transition-colors"
-                aria-label="Send message"
+                className="bg-accent hover:bg-accent/90 disabled:bg-gray-300 dark:disabled:bg-gray-600 disabled:cursor-not-allowed text-primary rounded-full p-2 transition-colors flex-shrink-0"
+                aria-label="Envoyer le message"
               >
                 <Send size={20} />
               </button>
             </div>
             <div className="flex justify-between items-center mt-2">
-              <p className="text-xs text-gray-400">
-                Made with love · {inputMessage.length}/500
+              <p className="text-xs text-gray-400 hidden sm:block">
+                Fait avec amour · {inputMessage.length}/500
               </p>
               {currentProvider && (
                 <p className="text-xs text-gray-500 dark:text-gray-400">
-                  Using:{" "}
+                  Utilisation :{" "}
                   {currentProvider === "grok"
                     ? "⚡ Grok"
                     : currentProvider === "gemini"
                     ? "🧠 Gemini"
-                    : "Quick response"}
+                    : "Réponse rapide"}
                 </p>
               )}
             </div>
