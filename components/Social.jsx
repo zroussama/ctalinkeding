@@ -8,12 +8,12 @@ import {
 } from "react-icons/fa";
 
 const socials = [
-  { icon: <FaGithub />, path: "" },
-  { icon: <FaLinkedinIn />, path: "" },
-  { icon: <FaTwitter />, path: "" },
-  { icon: <FaChess />, path: "" },
-  { icon: <FaWhatsapp />, path: "" },
-  { icon: <FaGamepad />, path: "" },
+  { icon: <FaGithub />, path: "https://github.com/zroussama" },
+  { icon: <FaLinkedinIn />, path: "https://linkedin.com/in/zroussama" },
+  // { icon: <FaTwitter />, path: "https://twitter.com/zroussama" },
+  { icon: <FaChess />, path: "https://chess.com/mrcheckmateTN" },
+  { icon: <FaWhatsapp />, path: "https://wa.me/21644377533" },
+  
 ];
 
 
