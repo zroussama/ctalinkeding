@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,7 +18,7 @@ const Contact = () => {
   const [submitStatus, setSubmitStatus] = useState(null); // null, 'success', 'error'
 
   // Web3Forms Access Key (replace with your actual key)
-  const WEB3FORMS_KEY = "YOUR_WEB3FORMS_ACCESS_KEY"; // Get from https://web3forms.com/
+  const WEB3FORMS_KEY = "16978a61-190e-4abb-91cf-d1366d928f82"; // Get from https://web3forms.com/
 
   const handleChange = (e) => {
     setFormData({
@@ -66,127 +68,95 @@ const Contact = () => {
     {
       icon: <Mail className="h-6 w-6" />,
       title: "Email",
-      value: "oussama2101@gmail.com",
-      description: "Primary contact method"
+      value: "oussama2101@gmail.com"
     },
     {
       icon: <Phone className="h-6 w-6" />,
       title: "Phone",
-      value: "+216 XX XXX XXX",
-      description: "Available for calls"
-    },
-    {
-      icon: <MapPin className="h-6 w-6" />,
-      title: "Location",
-      value: "Tunis, Tunisia",
-      description: "Based in North Africa"
-    },
-    {
-      icon: <Clock className="h-6 w-6" />,
-      title: "Response Time",
-      value: "Within 24 hours",
-      description: "Quick response guaranteed"
+      value: "+216 44 377 533"
     }
   ];
 
   return (
-    <section className="min-h-screen py-12">
-      <div className="container mx-auto px-4">
+    <section className="min-h-screen py-12 md:py-16 bg-gradient-to-b from-background to-muted/10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+        <div className="text-center mb-12 md:mb-20">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
             Get In <span className="text-accent">Touch</span>
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Ready to start your next project? Let's discuss how we can work together to bring your ideas to life.
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            Ready to start your project? Let's discuss how we can bring your ideas to life.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 max-w-7xl mx-auto">
           {/* Contact Information */}
-          <div className="space-y-8">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-2xl">Let's Connect</CardTitle>
-                <CardDescription>
-                  Choose your preferred way to reach out. I'm always excited to discuss new opportunities and creative projects.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                {contactInfo.map((info, index) => (
-                  <div key={index} className="flex items-start space-x-4 p-4 rounded-lg border">
-                    <div className="text-accent mt-1">
-                      {info.icon}
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-lg">{info.title}</h3>
-                      <p className="text-accent font-medium">{info.value}</p>
-                      <p className="text-sm text-muted-foreground">{info.description}</p>
-                    </div>
+          <div className="lg:col-span-5 xl:col-span-4 space-y-8">
+            <div className="mb-2">
+              <h2 className="text-2xl font-bold text-foreground">Contact Information</h2>
+            </div>
+            <div className="space-y-4">
+              {contactInfo.map((info, index) => (
+                <div 
+                  key={index} 
+                  className="flex items-start space-x-4 p-4 rounded-xl transition-all duration-300 hover:bg-accent/5 hover:shadow-sm border border-transparent hover:border-accent/20"
+                >
+                  <div className="p-2 rounded-lg bg-accent/10 text-accent">
+                    {React.cloneElement(info.icon, { className: "h-5 w-5" })}
                   </div>
-                ))}
-              </CardContent>
-            </Card>
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-foreground">{info.title}</h3>
+                    <p className="text-foreground/90">{info.value}</p>
+                    <p className="text-sm text-muted-foreground mt-1">{info.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
 
             {/* Alternative Contact Methods */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Other ways to Connect</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2">
-                    <Mail className="h-6 w-6" />
-                    <span>Email</span>
-                  </Button>
-                  <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2">
-                    <Phone className="h-6 w-6" />
-                    <span>Schedule Call</span>
-                  </Button>
-                </div>
-                <p className="text-sm text-muted-foreground text-center">
-                  Prefer instant chat? Use the chat widget in the bottom right corner!
-                </p>
-              </CardContent>
-            </Card>
+            <div className="pt-4">
+              <h3 className="text-lg font-semibold text-foreground mb-3">Quick Chat</h3>
+              <p className="text-sm text-muted-foreground">
+                Prefer instant communication? Use the chat widget in the bottom right corner.
+              </p>
+            </div>
           </div>
 
           {/* Contact Form */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-2xl">Send Message</CardTitle>
-              <CardDescription>
-                Fill out the form below and I'll get back to you as soon as possible.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium mb-2">
-                      Full Name *
-                    </label>
+          <div className="lg:col-span-7 xl:col-span-8 bg-card rounded-2xl shadow-lg p-6 md:p-8 lg:p-10 border border-border/20">
+            <div className="mb-8">
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">Send a Message</h2>
+              <p className="text-muted-foreground">
+                Have questions or want to discuss a project? We'll respond within 24 hours.
+              </p>
+            </div>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+                <div className="space-y-2">
+                  <label htmlFor="name" className="block text-sm font-medium text-foreground/90 mb-1.5">
+                    Full Name <span className="text-destructive">*</span>
+                  </label>
                     <Input
                       id="name"
                       name="name"
                       type="text"
                       required
-                      value={formData.name}
                       onChange={handleChange}
                       placeholder="Your full name"
                       disabled={isSubmitting}
+                      className="block w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500"
                     />
                   </div>
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium mb-2">
-                      Email Address *
-                    </label>
+                  <div className="space-y-2">
+                  <label htmlFor="email" className="block text-sm font-medium text-white mb-1.5">
+                    Email Address <span className="text-destructive">*</span>
+                  </label>
                     <Input
                       id="email"
                       name="email"
                       type="email"
                       required
-                      value={formData.email}
                       onChange={handleChange}
                       placeholder="your.email@example.com"
                       disabled={isSubmitting}
@@ -194,9 +164,9 @@ const Contact = () => {
                   </div>
                 </div>
 
-                <div>
-                  <label htmlFor="subject" className="block text-sm font-medium mb-2">
-                    Subject *
+                <div className="space-y-2">
+                  <label htmlFor="subject" className="block text-sm font-medium text-foreground/90 mb-1.5">
+                    Subject <span className="text-destructive">*</span>
                   </label>
                   <Input
                     id="subject"
@@ -207,12 +177,14 @@ const Contact = () => {
                     onChange={handleChange}
                     placeholder="What's this about?"
                     disabled={isSubmitting}
+                    className="text-black"
+
                   />
                 </div>
 
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium mb-2">
-                    Message *
+                <div className="space-y-2">
+                  <label htmlFor="message" className="block text-sm font-medium text-foreground/90 mb-1.5">
+                    Your Message <span className="text-destructive">*</span>
                   </label>
                   <Textarea
                     id="message"
@@ -223,7 +195,7 @@ const Contact = () => {
                     onChange={handleChange}
                     placeholder="Tell me about your project, requirements, or just say hello!"
                     disabled={isSubmitting}
-                    className="resize-none"
+                    className="resize-none text-black"
                   />
                 </div>
 
@@ -248,36 +220,35 @@ const Contact = () => {
                   </div>
                 )}
 
-                <Button
-                  type="submit"
-                  className="w-full"
-                  size="lg"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? (
-                    <>
-                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                      Sending...
-                    </>
-                  ) : (
-                    <>
-                      <Send className="h-4 w-4 mr-2" />
-                      Send Message
-                    </>
-                  )}
-                </Button>
+                <div className="pt-2">
+                  <Button
+                    type="submit"
+                    className="w-full h-12 text-base font-medium transition-all duration-200 transform hover:scale-[1.02]"
+                    size="lg"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent mr-2"></div>
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="h-5 w-5 mr-2" />
+                        Send Message
+                      </>
+                    )}
+                  </Button>
+                </div>
 
-                <p className="text-xs text-muted-foreground text-center">
-                  By submitting this form, you agree to receive a response via email.
-                  Your information will never be shared with third parties.
-                </p>
-              </form>
-            </CardContent>
-          </Card>
+             
+     
+            </form>
+          </div>
         </div>
       </div>
     </section>
   );
-};
+}
 
 export default Contact;
