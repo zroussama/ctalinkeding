@@ -4,28 +4,28 @@ import CountUp from "react-countup";
 const stats = [
 
   {
-    num: 5, 
-    text: "Projects completed",
+    num: 8, 
+    text: "Projects delivered",
   },
   {
-    num: 10, 
+    num: +10, 
     text: "Technologies worked with",
   },
   {
-    num: 1000, 
-    text: "Lines of code written",
+    num: 10000, 
+    text: "Production-ready code written",
   },
   {
     num: 50, 
-    text: "Data pipelines built",
+    text: "Data pipelines automated",
   },
   {
     num: 200, 
-    text: "Git commits",
+    text: "Git contributions made",
   },
   {
-    num: 3, 
-    text: "Databases managed",
+    num: 17, 
+    text: "Databases optimized",
   },
 ];
 

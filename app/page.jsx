@@ -16,10 +16,10 @@ const Home = () => {
     const typed = new Typed(typedRef.current, {
       strings: [
         "Oussama Zribi",
+        "Software Engineer",
         "Data Architect",
         "WEB Developer",
-        "Software Engineer",
-        "Data Scientist",
+        "Flowgrammer",
       ],
       typeSpeed: 90, // Speed at which each character is typed
       backSpeed: 100, // Speed at which each character is deleted

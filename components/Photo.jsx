@@ -12,7 +12,6 @@ const Photo = () => {
           transition: { delay: 1, duration: 0.4, ease: "easeIn" },
         }}
       >
-        
         {/* Image */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -23,16 +22,20 @@ const Photo = () => {
           className="w-[298px] h-[298px] xl:w-[498px] xl:h-[498px] mix-blend-lighten absolute"
         >
           <Image
-            src="/assets/DSC_6950.png"
+            src="/assets/img/transparent/rm_bg_1.png"
             priority
             quality={100}
             fill
-            alt=""
+            sizes="(max-width: 768px) 298px, 498px"
+            alt="Profile photo"
             className="object-contain"
+            style={{
+              objectPosition: "center 30%",
+              imageRendering: "high-quality",
+            }}
           />
         </motion.div>
 
-        
         {/* circle */}
         <motion.svg
           className="w-[300px] xl:w-[506px] h-[300px] xl:h-[506px]"
@@ -49,15 +52,15 @@ const Photo = () => {
             strokeLinecap="round"
             strokeLinejoin="round"
             initial={{ strokeDasharray: "24 10 0 0" }}
-            animate={{ 
+            animate={{
               strokeDasharray: ["15 120 25 25", "16 25 92 72", "4 250 22 22"],
               rotate: [120, 360],
-             }}
-             transition={{ 
+            }}
+            transition={{
               duration: 20,
               repeat: Infinity,
-              repeatType: "reverse", 
-              }}
+              repeatType: "reverse",
+            }}
           />
         </motion.svg>
       </motion.div>
