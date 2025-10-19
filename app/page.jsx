@@ -76,7 +76,7 @@ const Home = () => {
                 href="/contact" 
                 className="inline-flex items-center px-3 py-1.5 text-xs sm:text-sm font-medium rounded-lg bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 group/button"
               >
-                Let's Connect
+                Let s Connect
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 ml-1.5 group-hover/button:translate-x-0.5 transition-transform" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
                 </svg>
@@ -105,14 +105,14 @@ const Home = () => {
             {/* btn & socials */}
             <div className="flex flex-col items-center gap-4 xl:flex-row">
               {/* Download CV Button */}
-              <Button
-                variant="outline"
-                size="lg"
-                className="flex items-center gap-2 uppercase"
+              <a 
+                href="/assets/CV/Oussama Zribi Resume.pdf" 
+                download="Oussama_Zribi_Resume.pdf"
+                className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background border border-input hover:bg-accent hover:text-accent-foreground h-11 px-8 py-2 gap-2 uppercase"
               >
                 <span>Download CV</span>
                 <FiDownload className="text-xl" />
-              </Button>
+              </a>
               
               {/* Chat CTA Button */}
               <Button 

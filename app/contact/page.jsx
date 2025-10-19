@@ -105,10 +105,10 @@ const Contact = () => {
         >
      
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r  bg-clip-text text-white">
-            Let's Work <span className="text-accent">Together</span>
+            Let s Work <span className="text-accent">Together</span>
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Have a project in mind or want to discuss potential opportunities? <br className="hidden md:block" /> I'd love to hear from you.
+            Have a project in mind or want to discuss potential opportunities? <br className="hidden md:block" /> I would love to hear from you.
           </p>
         </motion.div>
 
@@ -207,7 +207,7 @@ const Contact = () => {
                     {submitStatus === 'success' ? (
                       <>
                         <CheckCircle className="h-5 w-5" />
-                        <span>Message sent successfully! I'll get back to you soon.</span>
+                        <span>Message sent successfully! I will get back to you soon.</span>
                       </>
                     ) : (
                       <>
@@ -251,7 +251,7 @@ const Contact = () => {
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
                     <div>
                       <p className="text-green-500 font-medium">Message Sent Successfully!</p>
-                      <p className="text-green-400 text-sm mt-1">Thank you for reaching out. I'll get back to you soon!</p>
+                      <p className="text-green-400 text-sm mt-1">Thank you for reaching out. I will get back to you soon!</p>
                     </div>
                   </div>
                 )}

@@ -95,15 +95,15 @@ const experience = {
       position: "Software architect",
       duration: "July 2024 - December 2024",
       website: "https://www.stagic.dk/",
-      description: "Designed, developed, and maintained custom web applications using Next.js, React, and Node.js. \n Created microservices tailored to specific projects (WebSocket, REST API).",
+      description: "Designed, developed, and maintained custom web applications using Next.js, React, and Node.js. Created microservices tailored to specific projects (WebSocket, REST API).",
       logo:"https://media.licdn.com/dms/image/v2/D4E0BAQF6yA9U81neBg/company-logo_200_200/company-logo_200_200/0/1701778140027?e=1762387200&v=beta&t=l6WXD8EbfuRx3vZjApcNInuvNtu0cWRGZqK4IzTs5iY"
     },
     {
       company: "E-commerce Startup",
-      position: "Freelance web developer",
+      position: "E-commerce Manager & Digital Seller",
       duration: "November 2023 - July 2024",
-      website: "https://www.stagic.dk/",
-      description: "Lorem Ipsum is Lorem Ipsum is Lorem Ips",
+      website: "#",
+      description: "Managed a small e-commerce business focused on local cash-on-delivery sales. Handled product sourcing, customer communication, and logistics. Promoted products through Facebook ads and affiliate partnerships, achieving steady growth in monthly orders. Gained hands-on experience in online sales strategies, content creation, and conversion optimization.",
       logo:"https://scontent.ftun10-1.fna.fbcdn.net/v/t39.30808-1/449347417_906125831527255_8326411117955646482_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=107&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=xy2KdXVkZowQ7kNvwGs2UAh&_nc_oc=AdnoM01mrLBGJxubsFLpf18Ggb0GuUA_6sgF7vyfTVktxqCTZAjEVXc5f6BL-iaGwfE&_nc_zt=24&_nc_ht=scontent.ftun10-1.fna&_nc_gid=mbvQlfsMHT7XKL7RzM62sg&oh=00_AfeKBFYcm-OaSxhAZSqr8PnvwLP5kmtXzv6alStYc9xCig&oe=68FB1085"
 
     },
