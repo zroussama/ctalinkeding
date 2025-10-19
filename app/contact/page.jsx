@@ -86,42 +86,13 @@ const Contact = () => {
             Get In <span className="text-accent">Touch</span>
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Ready to start your project? Let's discuss how we can bring your ideas to life.
+            Ready to start your project? <br /> Let's discuss how we can bring your ideas to life.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 max-w-7xl mx-auto">
+      
           {/* Contact Information */}
-          <div className="lg:col-span-5 xl:col-span-4 space-y-8">
-            <div className="mb-2">
-              <h2 className="text-2xl font-bold text-foreground">Contact Information</h2>
-            </div>
-            <div className="space-y-4">
-              {contactInfo.map((info, index) => (
-                <div 
-                  key={index} 
-                  className="flex items-start space-x-4 p-4 rounded-xl transition-all duration-300 hover:bg-accent/5 hover:shadow-sm border border-transparent hover:border-accent/20"
-                >
-                  <div className="p-2 rounded-lg bg-accent/10 text-accent">
-                    {React.cloneElement(info.icon, { className: "h-5 w-5" })}
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-semibold text-foreground">{info.title}</h3>
-                    <p className="text-foreground/90">{info.value}</p>
-                    <p className="text-sm text-muted-foreground mt-1">{info.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Alternative Contact Methods */}
-            <div className="pt-4">
-              <h3 className="text-lg font-semibold text-foreground mb-3">Quick Chat</h3>
-              <p className="text-sm text-muted-foreground">
-                Prefer instant communication? Use the chat widget in the bottom right corner.
-              </p>
-            </div>
-          </div>
+    
 
           {/* Contact Form */}
           <div className="lg:col-span-7 xl:col-span-8 bg-card rounded-2xl shadow-lg p-6 md:p-8 lg:p-10 border border-border/20">
@@ -245,7 +216,6 @@ const Contact = () => {
      
             </form>
           </div>
-        </div>
       </div>
     </section>
   );
