@@ -105,14 +105,20 @@ const Home = () => {
             {/* btn & socials */}
             <div className="flex flex-col items-center gap-4 xl:flex-row">
               {/* Download CV Button */}
-              <a 
-                href="/assets/CV/Oussama Zribi Resume.pdf" 
-                download="Oussama_Zribi_Resume.pdf"
-                className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background border border-input hover:bg-accent hover:text-accent-foreground h-11 px-8 py-2 gap-2 uppercase"
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="flex items-center gap-2 uppercase"
               >
-                <span>Download CV</span>
-                <FiDownload className="text-xl" />
-              </a>
+                <a 
+                  href="/assets/CV/Oussama Zribi Resume.pdf" 
+                  download="Oussama_Zribi_Resume.pdf"
+                >
+                  <span>Download CV</span>
+                  <FiDownload className="text-xl" />
+                </a>
+              </Button>
               
               {/* Chat CTA Button */}
               <Button 
