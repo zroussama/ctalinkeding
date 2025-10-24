@@ -1,12 +1,15 @@
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { Analytics } from '@vercel/analytics/react';
-import { GoogleAnalytics } from '@next/third-parties/google';
 import Header from '@/components/Header';
 import ChatWidget from '@/components/ChatWidget';
 import Script from 'next/script';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ 
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter'
+});
 
 export const metadata = {
   title: 'Portfolio - Oussama Zribi',
@@ -69,10 +72,48 @@ export const metadata = {
   },
 };
 
+
+// JSON-LD structured data for better SEO
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Oussama Zribi',
+  url: 'https://ohzed.netlify.app',
+  sameAs: [
+    'https://linkedin.com/in/zroussama',
+    'https://github.com/zroussama'
+  ],
+  jobTitle: 'Software Engineer & Data Architect',
+  worksFor: {
+    '@type': 'Organization',
+    name: 'Freelance'
+  },
+  description: 'Software Engineer & Data Architect specializing in modern web development, data architecture, and cloud solutions.',
+  alumniOf: {
+    '@type': 'EducationalOrganization',
+    name: 'Your University/Institution',
+    sameAs: 'https://www.university.edu'
+  },
+  knowsAbout: [
+    'Web Development',
+    'Data Architecture',
+    'Cloud Computing',
+    'Machine Learning',
+    'DevOps'
+  ]
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="fr">
       <head>
+        {/* JSON-LD Structured Data */}
+        <Script
+          id="person-jsonld"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+
         {/* Google Analytics */}
         <Script
           strategy="afterInteractive"
@@ -92,33 +133,14 @@ export default function RootLayout({ children }) {
             `,
           }}
         />
-        
-        {/* Hotjar Tracking Code */}
-        <Script
-          id="hotjar"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function(h,o,t,j,a,r){
-                h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-                h._hjSettings={hjid:0000000,hjsv:6};
-                a=o.getElementsByTagName('head')[0];
-                r=o.createElement('script');r.async=1;
-                r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-                a.appendChild(r);
-              })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-            `,
-          }}
-        />
       </head>
-      <body className={`${inter.className} relative bg-primary text-white`}>
+      <body className={`${inter.variable} font-sans relative bg-primary text-white`}>
         <Header />
         <main>
           {children}
         </main>
         <ChatWidget />
         <Analytics />
-        <GoogleAnalytics gaId="G-XXXXXXXXXX" />
       </body>
     </html>
   );
