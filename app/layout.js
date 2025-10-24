@@ -23,7 +23,7 @@ export const metadata = {
     description: 'Portfolio of Oussama Zribi - Software Architect & Developer',
     url: 'https://ohzed.netlify.app/',
     siteName: 'Oussama Zribi Portfolio',
-    locale: 'fr_FR',
+    locale: 'en_EN',
     type: 'website',
     images: [
       {
@@ -91,8 +91,8 @@ const jsonLd = {
   description: 'Software Engineer & Data Architect specializing in modern web development, data architecture, and cloud solutions.',
   alumniOf: {
     '@type': 'EducationalOrganization',
-    name: 'Your University/Institution',
-    sameAs: 'https://www.university.edu'
+    name: 'Esprit Tunis',
+    sameAs: 'https://www.esprit.tn'
   },
   knowsAbout: [
     'Web Development',
@@ -105,7 +105,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="fr">
+    <html lang="en">
       <head>
         {/* JSON-LD Structured Data */}
         <Script
@@ -117,7 +117,7 @@ export default function RootLayout({ children }) {
         {/* Google Analytics */}
         <Script
           strategy="afterInteractive"
-          src={`https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX`}
+          src={`https://www.googletagmanager.com/gtag/js?id=G-7YM082TMJB`}
         />
         <Script
           id="google-analytics"
@@ -127,7 +127,7 @@ export default function RootLayout({ children }) {
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-XXXXXXXXXX', {
+              gtag('config', 'G-7YM082TMJB', {
                 page_path: window.location.pathname,
               });
             `,
