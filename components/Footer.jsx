@@ -49,7 +49,7 @@ export default function Footer() {
             </h3>
             <p className="text-white/80 text-sm leading-relaxed mb-4">
               Software Engineer & Data Architect with a passion for building scalable web applications 
-              and data-driven solutions. Let's create something amazing together!
+              and data-driven solutions. Let s create something amazing together!
             </p>
             <div className="flex space-x-4 mt-6">
               {[
