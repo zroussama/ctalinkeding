@@ -104,21 +104,44 @@ const Home = () => {
             <p className="max-w-[500px] mb-9 text-white/80 ">Whether you need a data-driven approach to your next project or a refined digital solution, I am open to opportunities to collaborate and create impactful experiences.</p>
             {/* btn & socials */}
             <div className="flex flex-col items-center gap-4 xl:flex-row">
-              {/* Download CV Button */}
-              <Button
-                asChild
-                variant="outline"
-                size="lg"
-                className="flex items-center gap-2 uppercase"
-              >
-                <a 
-                  href="/assets/CV/Oussama Zribi Resume.pdf" 
-                  download="Oussama_Zribi_Resume.pdf"
+              {/* Professional Download CV Dropdown */}
+              <div className="relative group">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="flex items-center gap-2 uppercase bg-white/5 backdrop-blur-sm border border-white/10 text-white/90 hover:bg-white/10 hover:border-white/20 hover:text-white transition-all duration-200"
                 >
                   <span>Download CV</span>
-                  <FiDownload className="text-xl" />
-                </a>
-              </Button>
+                  <FiDownload className="text-lg" />
+                </Button>
+                <div className="absolute left-0 mt-2 w-56 rounded-lg bg-white/5 backdrop-blur-lg border border-white/10 shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
+                  <div className="p-1.5">
+                    <a
+                      href="/assets/CV/Oussama Zribi Resume.pdf"
+                      download="Oussama_Zribi_Resume_EN.pdf"
+                      className="flex items-center px-4 py-2.5 text-sm text-white/90 hover:bg-white/5 transition-colors duration-200 rounded-md group/item"
+                    >
+                      <span className="text-accent mr-3">EN</span>
+                      <span className="flex-1 text-left">English Version</span>
+                      <svg className="w-4 h-4 text-white/40 group-hover/item:text-accent transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                      </svg>
+                    </a>
+                    <div className="mx-3 my-1 h-px bg-white/5"></div>
+                    <a
+                      href="/assets/CV/Inénieur Logiciel - CV Oussama Zribi.pdf"
+                      download="Oussama_Zribi_CV_FR.pdf"
+                      className="flex items-center px-4 py-2.5 text-sm text-white/90 hover:bg-white/5 transition-colors duration-200 rounded-md group/item"
+                    >
+                      <span className="text-accent mr-3">FR</span>
+                      <span className="flex-1 text-left">Version Française</span>
+                      <svg className="w-4 h-4 text-white/40 group-hover/item:text-accent transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
               
               {/* Chat CTA Button */}
               <Button 
