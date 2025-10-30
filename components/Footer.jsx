@@ -24,14 +24,14 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative overflow-hidden bg-gradient-to-b from-primary/5 via-primary/10 to-primary/20 backdrop-blur-md border-t border-white/5 mt-16">
+    <footer className="relative overflow-hidden bg-gradient-to-b from-primary/5 via-primary/10 to-primary/20 backdrop-blur-md border-t border-white/5 mt-24">
       {/* Decorative elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-20 -right-20 w-64 h-64 bg-accent/10 rounded-full filter blur-3xl"></div>
         <div className="absolute -bottom-20 -left-20 w-72 h-72 bg-primary/10 rounded-full filter blur-3xl"></div>
       </div>
       
-      <div className="relative z-10 container mx-auto px-4 py-12 md:py-16">
+      <div className="relative z-10 container mx-auto px-4 py-12 md:py-16 max-w-7xl">
         <motion.div 
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12"
           variants={container}
@@ -135,6 +135,7 @@ export default function Footer() {
           </p>
         
         </motion.div>
+        
       </div>
     </footer>
   );
