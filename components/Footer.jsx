@@ -45,7 +45,7 @@ export default function Footer() {
             variants={item}
           >
             <h3 className="text-xl font-bold mb-5 bg-gradient-to-r from-accent to-accent/80 bg-clip-text text-transparent">
-              Oussama Zribi
+              OhZed  Oussama Zribi   
             </h3>
             <p className="text-white/80 text-sm leading-relaxed mb-4">
               Software Engineer & Data Architect with a passion for building scalable web applications 
