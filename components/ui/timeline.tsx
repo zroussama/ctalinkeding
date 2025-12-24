@@ -245,6 +245,7 @@ const TimelineCard = ({ item, index }: { item: TimelineItem; index: number }) =>
 
                     return (
                       <motion.a
+                        key={`link-${i}`}
                         {...linkProps}
                         whileHover={{ x: 3 }}
                       >
@@ -307,7 +308,7 @@ export const Timeline = ({ items, className }: TimelineProps) => {
             Mon <span className="text-accent">Parcours</span>
           </h2>
           <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            L'évolution de mon parcours professionnel, mes projets et réalisations au fil des années.
+            L&apos;évolution de mon parcours professionnel, mes projets et réalisations au fil des années.
           </p>
         </div>
 
