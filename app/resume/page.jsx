@@ -313,7 +313,7 @@ const skills = {
   ],
 };
 
-const resume = () => {
+const Resume = () => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -321,7 +321,7 @@ const resume = () => {
         opacity: 1,
         transition: { delay: 1.2, duration: 0.2, ease: "easeIn" },
       }}
-      className="moin-h-[80vh] flex items-center justify-center py-12 xl:py-0"
+      className="min-h-[80vh] flex items-center justify-center py-12 xl:py-0"
     >
       <div className="container mx-auto">
         <Tabs
@@ -504,7 +504,6 @@ const resume = () => {
             </TabsContent>
 
 
-
             
             {/* about me */}
             <TabsContent value="about" className="w-full">
@@ -563,4 +562,4 @@ const resume = () => {
   );
 };
 
-export default resume;
+export default Resume;
